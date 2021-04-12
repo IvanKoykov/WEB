@@ -1,0 +1,28 @@
+{% extends 'base_blog.html' %}
+{% block title %}
+    {{ tag.title }}-{{ block.super }}
+{% endblock %}
+{% block content %}
+    <h1 class="md-5">Post with"{{ tag.title|title }}"tag:</h1>
+    {% if user.id == tag.id_user %}
+         <div class="form-group">
+        <a href="{{tag.get_update_url }}" class="btn btn-primary">Tag Update</a>
+        <a href="{% url 'tag_delete_url' slug=tag.slug  %}" class="btn btn-primary">Delete</a>
+
+    </div>
+    {% endif %}
+
+
+    {% for post in tag.posts.all %}
+     <div class="card w-300">
+                <div class="card-header">
+                    {{ post.date_pub }}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.body|truncatewords:15 }}</p>
+                    <a href="{{ post.get_absolute_url }}" class="btn btn-light">read</a>
+                </div>
+            </div>
+    {% endfor %}
+{% endblock %}

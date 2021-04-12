@@ -1,0 +1,20 @@
+{% extends 'base_blog.html' %}
+
+{% block title %}
+    {{ post.title }} - {{ block.super }}
+{% endblock %}
+{% block content %}
+    <h1 class="mt-5">
+        {{ post.title }}
+    </h1>
+    <p>
+        {{ post.body }}
+    </p>
+    {% if user.id == post.id_user %}
+        <div class="form-group">
+            <a href="{{post.get_update_url }}" class="btn btn-primary">Post Update</a>
+            <a href="{{ post.get_delete_url }}" class="btn btn-primary">Delete</a>
+        </div>
+    {% endif %}
+
+{% endblock %}
